@@ -2,15 +2,21 @@
 import re
 # read in file
 
-with open('./data/Harriet.txt') as f:
-    content = f.readlines()
-    print(type(content))
+with open('./data/genderwords.txt') as gwords:
+    gendered_word_list = [line.rstrip('\n') for line in gwords]
 
-    newlines = []
+print(gendered_word_list[3])
 
-    for line in content:
-        print(line)
-        newline = re.sub('Harry', 'Harriet', line)
-        newline = re.sub('Mrs.', 'Mrs.oo', line)
-        newlines.append(newline)
-    print(newlines[:50])
+with open('./data/Harriet.txt', 'r') as f:
+    content = f.read()
+
+    for counter in range(len(gendered_word_list)):
+        print (counter)
+        print(gendered_word_list[counter])
+        newtxt = re.sub(gendered_word_list[counter], gendered_word_list[counter]+'ooyt ', content)
+        content = newtxt
+    print(content[:550])
+
+    
+
+#output the new text into a new file
