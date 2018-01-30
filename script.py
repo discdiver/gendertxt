@@ -1,6 +1,9 @@
+# main script
+# read in list of gendered words from genderwords
+# switch them through an intermediary step
+
 import csv
 import re
-flags = re.IGNORECASE
 
 with open ('./data/genderwords.csv') as words:
     reader = csv.reader(words)
@@ -12,10 +15,9 @@ with open ('./data/genderwords.csv') as words:
                 x = line
                 # iterate through the dictionary on that one line making any changes necessary for individual words
                 for oldword, newword in mydict.items():
-                    regex_match = r'\b(%s)\s+\b'
+                    regex_match = r'\b(%s)+\b'
                     reg = regex_match % oldword
-                    # print (reg)
-                    x = re.sub(reg, oldword+'silly ', x)
+                    x = re.sub(reg, oldword+'silly', x)
                 f2.write(x)
             f2.close()
         f1.close()
@@ -24,16 +26,18 @@ with open ('./data/genderwords.csv') as words:
                 for line2 in f4:
                     x2 = line2
                     for oldword, newword in mydict.items():
-                        regex_match = r'\b(%s)\s+\b'
+                        regex_match = r'\b(%s)+\b'
                         sil = oldword+'silly'
                         reg = regex_match % sil
-
-                        x2 = re.sub(reg, newword+" ", x2)
+                        x2 = re.sub(reg, newword, x2)
                     f3.write(x2)
                 f3.close()
             f4.close()
-
 words.close()
+
+# her can correspond with him or his.
+# same with his and her or hers.
+# need to figuore out by part of speech
 
 #x = line.replace(" "+oldword+" ", " "+oldword+"silly")
 # then  f2.write(line.replace(" "+oldword+"silly", " "+neword+" ")
